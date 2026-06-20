@@ -1,17 +1,15 @@
-# Core Deep Learning & Processing
-tensorflow-macos==2.15.0     # Replaces base 'tensorflow' to prevent Apple Silicon conflicts
+tensorflow==2.15.0
 numpy==1.26.4
-opencv-python
-scikit-learn
-matplotlib
+opencv-python-headless==4.10.0.84
+scikit-learn==1.5.1
+matplotlib==3.9.2
 
-# Face Mesh & Landmarks Architecture
 mediapipe==0.10.14
-jax==0.4.23                  # Version-locked to prevent numpy 2.0+ conflicts
-jaxlib==0.4.23               # Version-locked to prevent numpy 2.0+ conflicts
-ml_dtypes>=0.5.0
+jax==0.4.23
+jaxlib==0.4.23
+ml-dtypes==0.2.0
 
-# Clinical Web Portal & Utilities
-streamlit
-fpdf
-tqdm
+streamlit==1.37.1
+fpdf==1.7.2
+tqdm==4.66.5
+pillow==10.4.0
