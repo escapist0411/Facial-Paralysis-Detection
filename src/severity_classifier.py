@@ -1,18 +1,19 @@
 # src/severity_classifier.py
 
-def severity_level(score):
+def severity_level(score, confidence=0.0, label="Normal"):
 
-    if score < 2:
+    if label == "Normal":
         return "Normal"
 
-    elif score < 5:
-        return "Mild Paralysis"
+    # Base severity on confidence level as requested
+    if confidence > 0.95:
+        return "Severe Paralysis"
 
-    elif score < 10:
+    elif confidence > 0.80:
         return "Moderate Paralysis"
 
     else:
-        return "Severe Paralysis"
+        return "Mild Paralysis"
 
 
 

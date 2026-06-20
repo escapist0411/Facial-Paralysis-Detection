@@ -5,3 +5,6 @@ data/
 reports/images/
 *.h5
 *.keras
+.venv/
+reports/*.pdf
+reports/inquiries/

@@ -1,8 +1,17 @@
+# Core Deep Learning & Processing
+tensorflow-macos==2.15.0     # Replaces base 'tensorflow' to prevent Apple Silicon conflicts
+numpy==1.26.4
 opencv-python
-numpy
-tensorflow
 scikit-learn
 matplotlib
-mediapipe
-flask
+
+# Face Mesh & Landmarks Architecture
+mediapipe==0.10.14
+jax==0.4.23                  # Version-locked to prevent numpy 2.0+ conflicts
+jaxlib==0.4.23               # Version-locked to prevent numpy 2.0+ conflicts
+ml_dtypes>=0.5.0
+
+# Clinical Web Portal & Utilities
+streamlit
 fpdf
+tqdm

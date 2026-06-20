@@ -19,6 +19,7 @@ def generate_report(
     diagnosis,
     score,
     severity,
+    confidence,
     original_img_path,
     segmented_img_path
 ):
@@ -71,7 +72,6 @@ def generate_report(
     pdf.cell(100, 8, f"Age: {age}", border=1)
     pdf.cell(90, 8, "Test Type: AI Facial Scan", border=1, ln=True)
 
-    # ---------- IMAGES ----------
     # ---------- IMAGING RESULTS ----------
     pdf.ln(10)
     pdf.set_font("Arial", "B", 13)
@@ -106,9 +106,24 @@ def generate_report(
     pdf.cell(200, 8, "Diagnosis Result", ln=True)
 
     pdf.set_font("Arial", "", 11)
-    pdf.cell(190, 8, f"Diagnosis: {diagnosis}", border=1, ln=True)
-    pdf.cell(190, 8, f"Asymmetry Score: {score}", border=1, ln=True)
-    pdf.cell(190, 8, f"Severity Level: {severity}", border=1, ln=True)
+    
+    # Using filled cells for a better table look
+    pdf.set_fill_color(240, 240, 240)
+    
+    pdf.cell(95, 10, "Primary Diagnosis:", border=1, fill=True)
+    pdf.set_font("Arial", "B", 11)
+    pdf.cell(95, 10, f" {diagnosis}", border=1, ln=True)
+    
+    pdf.set_font("Arial", "", 11)
+    pdf.cell(95, 10, "Neural Network Confidence:", border=1, fill=True)
+    pdf.cell(95, 10, f" {confidence*100:.2f}%", border=1, ln=True)
+    
+    pdf.cell(95, 10, "Asymmetry Geometric Score:", border=1, fill=True)
+    pdf.cell(95, 10, f" {score:.4f}", border=1, ln=True)
+    
+    pdf.cell(95, 10, "Severity Classification:", border=1, fill=True)
+    pdf.set_font("Arial", "B", 11)
+    pdf.cell(95, 10, f" {severity}", border=1, ln=True)
 
     # ---------- IMPRESSION ----------
     pdf.ln(8)
@@ -145,6 +160,11 @@ def generate_report(
     )
 
     pdf.output("reports/final_medical_report.pdf")
+    
+    # Save a patient-specific report file
+    clean_name = "".join([c for c in patient_name if c.isalnum() or c==' ']).strip().replace(' ', '_')
+    unique_report_path = f"reports/Report_{clean_name}_{report_id}.pdf"
+    pdf.output(unique_report_path)
 
     if os.path.exists(qr_path):
         os.remove(qr_path)

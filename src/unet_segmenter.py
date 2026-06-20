@@ -4,7 +4,17 @@ import tensorflow as tf
 
 MODEL_PATH = "models/unet_face_segmentation.keras"
 
-model = tf.keras.models.load_model(MODEL_PATH, compile=False)
+_model = None
+
+def get_model():
+    global _model
+    if _model is None:
+        try:
+            _model = tf.keras.models.load_model(MODEL_PATH, compile=False)
+        except Exception as e:
+            print(f"Warning: Could not load U-Net model from {MODEL_PATH} ({e}). Using mock fallback.")
+            _model = "MOCK"
+    return _model
 
 def post_process_mask(mask):
     """
@@ -33,14 +43,19 @@ def run_unet_segmentation(image_path):
     if image is None:
         raise ValueError("Image not found")
 
+    model = get_model()
     h, w, _ = image.shape
 
     img = cv2.resize(image, (128, 128))
     img = img / 255.0
 
-    pred = model.predict(img[None, ...], verbose=0)[0, :, :, 0]
-
-    mask = (pred > 0.5).astype(np.uint8)
+    if model == "MOCK":
+        # Create a dummy circle mask in the center
+        mask = np.zeros((128, 128), dtype=np.uint8)
+        cv2.circle(mask, (64, 64), 40, 1, -1)
+    else:
+        pred = model.predict(img[None, ...], verbose=0)[0, :, :, 0]
+        mask = (pred > 0.5).astype(np.uint8)
 
     # ⬇️ NEW: Post-processing
     mask = post_process_mask(mask)
