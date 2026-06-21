@@ -117,9 +117,11 @@ else:
 
 # Style table
 st.dataframe(
+
     filtered_df,
-    width="stretch",
+
     hide_index=True
+
 )
 
 st.markdown("""
