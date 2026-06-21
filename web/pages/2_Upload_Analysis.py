@@ -182,11 +182,20 @@ if submit:
                     )
 
         with col_res2:
-            st.markdown("### <i class='fa-solid fa-eye' style='color:#38bdf8;'></i> Computer Vision Output", unsafe_allow_html=True)
-            
-            tab1, tab2 = st.tabs(["U-Net Segmentation Overlay", "Original Patient Photo"])
-            
-            with tab1:
-                st.image(overlay_path, caption="U-Net Facial Muscle Segmentation Overlay", width=700)
-            with tab2:
-                st.image(original_path, caption="Uploaded Original Face Image", use_container_width=True)
+    st.markdown("### <i class='fa-solid fa-eye' style='color:#38bdf8;'></i> Computer Vision Output", unsafe_allow_html=True)
+
+    tab1, tab2 = st.tabs(["U-Net Segmentation Overlay", "Original Patient Photo"])
+
+    with tab1:
+        st.image(
+            overlay_path,
+            caption="U-Net Facial Muscle Segmentation Overlay",
+            width=700
+        )
+
+    with tab2:
+        st.image(
+            original_path,
+            caption="Uploaded Original Face Image",
+            width=700
+        )
