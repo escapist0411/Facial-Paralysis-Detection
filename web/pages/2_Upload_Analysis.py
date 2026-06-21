@@ -187,6 +187,6 @@ if submit:
             tab1, tab2 = st.tabs(["U-Net Segmentation Overlay", "Original Patient Photo"])
             
             with tab1:
-                st.image(overlay_path, caption="U-Net Facial Muscle Segmentation Overlay", use_container_width=True)
+                st.image(overlay_path, caption="U-Net Facial Muscle Segmentation Overlay", width=700)
             with tab2:
                 st.image(original_path, caption="Uploaded Original Face Image", use_container_width=True)
