@@ -118,7 +118,7 @@ else:
 # Style table
 st.dataframe(
     filtered_df,
-    use_container_width=True,
+    width="stretch",
     hide_index=True
 )
 
